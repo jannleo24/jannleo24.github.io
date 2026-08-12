@@ -81,18 +81,88 @@
   }
 
   /* =========================================================
-     NAV
+     WELCOME SLIDE — first thing visitors see
      ========================================================= */
+  .welcome{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(31,58,95,0.06), transparent 45%),
+      radial-gradient(circle at 80% 80%, rgba(74,108,140,0.08), transparent 45%),
+      var(--navy);
+    color:#FFFFFF;
+    padding:32px;
+    position:relative;
+    overflow:hidden;
+  }
+  .welcome::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.03), transparent 40%);
+    pointer-events:none;
+  }
+  .welcome .tag{ color:#9FC0DE; justify-content:center; }
+  .welcome .tag::before{ background:#9FC0DE; }
+  .welcome h1{
+    color:#FFFFFF;
+    font-size:clamp(30px, 5.5vw, 54px);
+    letter-spacing:0.01em;
+  }
+  .welcome p{
+    color:#C8D6E5;
+    margin-top:18px;
+    font-size:16.5px;
+    max-width:520px;
+  }
+  .welcome .scroll-cue{
+    margin-top:56px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    font-family:'Inter', sans-serif;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:#9FC0DE;
+    animation:bob 2s ease-in-out infinite;
+  }
+  .welcome .scroll-cue svg{ width:16px; height:16px; }
+  @keyframes bob{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(8px); }
+  }
+  @media (prefers-reduced-motion:reduce){
+    .welcome .scroll-cue{ animation:none; }
+  }
+
+  /* =========================================================
+     NAV — sticky so it stays visible while scrolling
+     ========================================================= */
+  .nav-border{
+    border-bottom:1px solid var(--line);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(246,247,249,0.92);
+    backdrop-filter:saturate(180%) blur(8px);
+    -webkit-backdrop-filter:saturate(180%) blur(8px);
+  }
   .nav{
     max-width:var(--maxw); margin:0 auto;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:26px 32px;
+    display:flex; align-items:center; justify-content:center;
+    gap:34px;
+    padding:22px 32px;
   }
-  .logo{ font-family:'Source Serif 4', serif; font-size:19px; font-weight:600; color:var(--navy); }
   .nav-links{ display:flex; gap:34px; font-size:14px; font-weight:500; color:var(--ink-soft); }
   .nav-links a:hover{ color:var(--navy); }
   @media (max-width:760px){ .nav-links{ display:none; } }
-  .nav-border{ border-bottom:1px solid var(--line); }
 
   /* =========================================================
      HERO
@@ -109,6 +179,19 @@
   }
   .hero p.sub{ margin-top:22px; font-size:16.5px; color:var(--ink-soft); max-width:500px; }
   .hero-ctas{ display:flex; gap:14px; margin-top:34px; flex-wrap:wrap; }
+
+  /* profile picture */
+  .profile-pic-wrap{ display:flex; align-items:center; gap:18px; margin-bottom:28px; }
+  .profile-pic{
+    width:88px; height:88px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--line-strong);
+    background:var(--surface-2);
+    flex-shrink:0;
+  }
+  .profile-pic-name{ font-family:'Source Serif 4', serif; font-size:15px; color:var(--navy); font-weight:600; }
+  .profile-pic-role{ font-size:13px; color:var(--ink-soft); margin-top:2px; }
 
   .credential-card{
     background:var(--surface);
@@ -253,11 +336,24 @@
 <body>
 
   <!-- =========================================================
+       WELCOME SLIDE — shown first, before the nav/hero
+       ========================================================= -->
+  <section class="welcome" id="welcome">
+    <div class="tag">Portfolio</div>
+    <h1>Welcome to my Portfolio Website</h1>
+    <p>IT Support Specialist &amp; Computer Technician — now training in AI and Python development.
+      Scroll down to explore my work.</p>
+    <a href="#top" class="scroll-cue" aria-label="Scroll down">
+      Scroll
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </a>
+  </section>
+
+  <!-- =========================================================
        NAV
        ========================================================= -->
   <div class="nav-border">
     <nav class="nav">
-      <a href="#top" class="logo">Jann Leo</a>
       <div class="nav-links">
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
@@ -274,6 +370,13 @@
   <header class="hero wrap" id="top">
     <div class="hero-grid">
       <div class="reveal">
+        <div class="profile-pic-wrap">
+          <img src="profile.jpg" alt="Jann Leo" class="profile-pic" onerror="this.style.display='none'">
+          <div>
+            <div class="profile-pic-name">Jann Leo</div>
+            <div class="profile-pic-role">IT Support &amp; Aspiring AI Trainer</div>
+          </div>
+        </div>
         <div class="tag">Portfolio</div>
         <h1>Jann Leo</h1>
         <div class="roles">IT Support Specialist · Computer Technician · Aspiring AI Trainer &amp; Python Developer</div>
