@@ -66,12 +66,59 @@
     font-weight:600; font-size:14px;
     font-family:'Inter', sans-serif;
     border-radius:4px; cursor:pointer;
-    transition:transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
   }
-  .btn-primary{ background:var(--navy); color:#FFFFFF; border:1px solid var(--navy); }
-  .btn-primary:hover{ background:#16324F; box-shadow:0 10px 22px -12px rgba(31,58,95,0.55); }
-  .btn-ghost{ background:transparent; color:var(--navy); border:1px solid var(--line-strong); }
-  .btn-ghost:hover{ border-color:var(--navy); background:var(--surface-2); }
+  /* embossed / raised feel on hover */
+  .btn-primary{
+    background:var(--navy); color:#FFFFFF; border:1px solid var(--navy);
+    box-shadow:0 1px 0 rgba(255,255,255,0.08) inset, 0 1px 2px rgba(15,26,41,0.35);
+  }
+  .btn-primary:hover{
+    background:#234875;
+    transform:translateY(-2px);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.18) inset,
+      0 10px 22px -10px rgba(31,58,95,0.65),
+      0 2px 4px rgba(15,26,41,0.3);
+  }
+  .btn-primary:active{
+    transform:translateY(0);
+    box-shadow:0 1px 2px rgba(15,26,41,0.4) inset;
+  }
+  .btn-ghost{
+    background:transparent; color:var(--navy); border:1px solid var(--line-strong);
+  }
+  .btn-ghost:hover{
+    border-color:var(--navy);
+    background:var(--surface-2);
+    transform:translateY(-2px);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 8px 18px -10px rgba(31,58,95,0.3);
+  }
+  .btn-ghost:active{
+    transform:translateY(0);
+    box-shadow:0 2px 4px rgba(31,58,95,0.15) inset;
+  }
+
+  /* =========================================================
+     ENTRANCE ANIMATION — drop-down on page load
+     ========================================================= */
+  @keyframes dropDown{
+    0%{ opacity:0; transform:translateY(-42px); }
+    60%{ opacity:1; transform:translateY(6px); }
+    100%{ opacity:1; transform:translateY(0); }
+  }
+  .drop-in{
+    animation:dropDown .8s cubic-bezier(.22,.88,.35,1.1) both;
+  }
+  .drop-in-1{ animation-delay:.05s; }
+  .drop-in-2{ animation-delay:.22s; }
+  .drop-in-3{ animation-delay:.38s; }
+  .drop-in-4{ animation-delay:.52s; }
+  @media (prefers-reduced-motion:reduce){
+    .drop-in{ animation:none; }
+  }
 
   .reveal{ opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease; }
   .reveal.in{ opacity:1; transform:translateY(0); }
@@ -339,11 +386,11 @@
        WELCOME SLIDE — shown first, before the nav/hero
        ========================================================= -->
   <section class="welcome" id="welcome">
-    <div class="tag">Portfolio</div>
-    <h1>Welcome to my Portfolio Website</h1>
-    <p>IT Support Specialist &amp; Computer Technician — now training in AI and Python development.
+    <div class="tag drop-in drop-in-1">Portfolio</div>
+    <h1 class="drop-in drop-in-2">Welcome to my Portfolio Website</h1>
+    <p class="drop-in drop-in-3">IT Support Specialist &amp; Computer Technician — now training in AI and Python development.
       Scroll down to explore my work.</p>
-    <a href="#top" class="scroll-cue" aria-label="Scroll down">
+    <a href="#top" class="scroll-cue drop-in drop-in-4" aria-label="Scroll down">
       Scroll
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
     </a>
@@ -353,7 +400,7 @@
        NAV
        ========================================================= -->
   <div class="nav-border">
-    <nav class="nav">
+    <nav class="nav drop-in" style="animation-delay:.05s;">
       <div class="nav-links">
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
